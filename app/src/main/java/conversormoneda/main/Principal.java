@@ -1,8 +1,16 @@
 package conversormoneda.main;
 
-import javax.swing.plaf.SpinnerUI;
 
+
+
+import com.google.gson.Gson;
+
+import conversormoneda.api_service.ApiRecord;
 import conversormoneda.api_service.ConsultaApi;
+import conversormoneda.modules.UserMenu;
+
+import java.util.Scanner;
+
 
 /**
  * Principal
@@ -10,20 +18,62 @@ import conversormoneda.api_service.ConsultaApi;
 public class Principal {
 
   public static void main(String[] args) {
-    ConsultaApi consultaApi = new ConsultaApi();
+//  Gson gson = new GsonBuilder()
+//          .setFieldNamingPolicy(FieldNamingPolicy.UPPER_CAMEL_CASE)
+//          .setPrettyPrinting()
+//          .create();
+    Gson gson = new Gson();
 
-    // System.out.println(consultaApi);
 
+    UserMenu menu = new UserMenu();
+    Scanner lectura = new Scanner(System.in);
+    menu.UserMenu();
+    menu.ListaDePaises();
+//    menu.MenuSelect();
+    String baseCurrSelected = null;
+    int pais1 = 0;
+    int pais2 = 0;
+//
     ArrayCodes codigo = new ArrayCodes();
-    String currencyBase = codigo.ListaCodigos(2);
-    String currencyTarget = codigo.ListaCodigos(1);
 
-    System.out.println(currencyBase);
-    System.out.println(currencyTarget);
-    
-    consultaApi.consulta(currencyBase,currencyTarget,2000);
-    // System.out.println(String.valueOf(codigo));
-    System.out.println(consultaApi);
-    
+//       menu.ListaDePaises();
+       menu.MensajeSelecciona();
+       pais1 = lectura.nextInt();
+      switch (pais1) {
+        case 1 -> baseCurrSelected = codigo.codigoResultado(pais1);
+        case 2 -> baseCurrSelected = codigo.codigoResultado(pais1);
+        case 3 -> baseCurrSelected = codigo.codigoResultado(pais1);
+        case 4 -> {
+          System.out.println("Finalizando programa.");
+          System.exit(0);
+        }
+      }
+      System.out.println("Seleccionaste: "+baseCurrSelected);
+
+      menu.TargetCurrencySelect();
+      pais2 = lectura.nextInt();
+      switch (pais2){
+        case 1 -> baseCurrSelected = codigo.codigoResultado(pais2);
+        case 2 -> baseCurrSelected = codigo.codigoResultado(pais2);
+        case 3 -> baseCurrSelected = codigo.codigoResultado(pais2);
+        case 4 -> {
+          System.out.println("Finalizando programa.");
+          System.exit(0);
+        }
+        default -> throw new IllegalStateException("Unexpected value: " + pais2);
+      }
+      System.out.println("Seleccionaste: "+baseCurrSelected);
+      var monto = lectura.nextInt();
+
+
+    String currencyBase = codigo.codigoResultado(pais1);
+    String currencyTarget = codigo.codigoResultado(pais2);
+
+
+    ConsultaApi consultaApi = new ConsultaApi();
+    String result = consultaApi.consulta(currencyBase,currencyTarget,monto);
+    ApiRecord apiRegistro = gson.fromJson(result, ApiRecord.class);
+      System.out.println("El valor de: "+monto+" "+codigo.ListaCodigos().get(pais1)+" Convertido es n/"+apiRegistro.conversion_result());
+    System.out.println("Fin del programa.");
   }
 }
