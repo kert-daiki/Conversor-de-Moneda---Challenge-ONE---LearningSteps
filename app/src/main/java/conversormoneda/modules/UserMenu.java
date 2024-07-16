@@ -31,7 +31,7 @@ public class UserMenu {
         System.out.println("-------------------------\n");
     }
     public void MensajeSelecciona(){
-        System.out.println("Escribe el numero del pais pase");
+        System.out.println("Escribe el numero del pais al que desea pasar");
         System.out.println("Si deseas cancelar oprime 4");
     }
     public void TargetCurrencySelect() {

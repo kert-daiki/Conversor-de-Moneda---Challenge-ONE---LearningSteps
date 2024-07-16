@@ -45,7 +45,7 @@ public ConsultaApi( ){
           .send(request, BodyHandlers.ofString());
 
       // System.out.println(response.body());
-      System.out.println(direccion);
+//      System.out.println(direccion);
       String json = response.body();
 
 //       return json;
