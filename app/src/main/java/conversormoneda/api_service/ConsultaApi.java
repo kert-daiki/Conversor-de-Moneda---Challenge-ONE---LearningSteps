@@ -7,23 +7,12 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.net.http.HttpResponse.BodyHandlers;
 
-import com.google.gson.FieldNamingPolicy;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-
-// import com.google.gson.Gson;
 
 /**
  * ConsultaApi
  */
 public class ConsultaApi {
-   public String result;
-   public String base_code;
-   String target_code;
 
-   int monto;
-   double conversion_rate;
-   double conversion_result;
 
 public ConsultaApi( ){
 
