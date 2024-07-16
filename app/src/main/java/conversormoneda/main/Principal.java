@@ -70,6 +70,7 @@ public class Principal {
     ApiRecord apiRegistro = gson.fromJson(result, ApiRecord.class);
     System.out.println("El valor de: " + monto + " " + codigo.codigoResultado(pais1) + " fue pasado a "
         + apiRegistro.conversion_result() + " " + codigo.codigoResultado(pais2));
+    lectura.close();
     System.out.println("Fin del programa.");
   }
 }
